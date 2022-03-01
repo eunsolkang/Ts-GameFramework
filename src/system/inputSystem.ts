@@ -1,3 +1,6 @@
+export const KeyInput = {
+    
+}
 
 export default class InputSystem {
     static instance = new InputSystem();
@@ -16,6 +19,9 @@ export default class InputSystem {
     
     isKeyDown(key: string): boolean{        
         return this.keyInput.get(key) ?? false;
+    }
+    onSubmitAction(key: string){
+        this.keyInput.set(key, false);
     }
 }
 

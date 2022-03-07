@@ -1,11 +1,4 @@
-import Road from "../object/road";
-import Space from "../object/space";
-import Wall from "../object/wall";
-import Setting from "../system/setting";
-import { Block } from "./block";
-import { Direction, DirectionType } from "./direction";
 import GameMap from "./mapGenerator";
-import MapGenerator from "./mapGenerator";
 
 export default class MapController extends Canvas {
     private mapData:MapObject[][] = new Array(25).fill(0).map(() => new Array(50));

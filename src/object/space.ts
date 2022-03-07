@@ -1,10 +1,9 @@
-export default class Space implements MapObject {
+export default class Space extends Canvas implements MapObject {
     constructor(
-        private ctx: CanvasRenderingContext2D,
         private x: number,
         private y: number,
     ){
-        this.ctx = ctx;
+        super();
     }
     init(): void {
         

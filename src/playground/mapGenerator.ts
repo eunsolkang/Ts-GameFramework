@@ -4,33 +4,34 @@ import Wall from "../object/wall";
 import { Block } from "./block";
 import { Direction, DirectionType } from "./direction";
 
-export default class MapGenerator {
+export default class MapGenerator extends Canvas{
     private mapData:MapObject[][];
 
     constructor(
-        private ctx: CanvasRenderingContext2D,
-        private width: number,
-        private height: number,
+        private absoluteX: number,
+        private absoluteY: number,
         private startX: number,
         private startY: number,
+        private width: number,
+        private height: number,
     ){
+        super();
         this.mapData = new Array(width).fill(0).map(() => new Array(height));
-        this.initMapData();
-        this.createSideWall();
+
     }
 
-    private initMapData(): void{
-        for(let y=0; y<this.height; y++){
-            for(let x=0; x<this.width; x++){
-                this.mapData[y][x] = new Space(this.ctx, x, y);
+    private initMapData(absoluteX: number, absoluteY: number): void{
+        for(let y= absoluteY; y< absoluteY + this.height; y++){
+            for(let x=absoluteX; x< absoluteX + this.width; x++){
+                this.mapData[y][x] = new Space(x, y);
             }
         }
     }
-    private createSideWall(): void{
-        for(let y=0; y<this.height; y++){
-            for(let x=0; x<this.width; x++){
-                if ( y === 0 || x === 0 || y === this.height - 1 || x === this.width -1  ){
-                    this.mapData[y][x] = new Wall(this.ctx, x, y);
+    private createSideWall(absoluteX: number, absoluteY: number): void{
+        for(let y=absoluteY; y<absoluteY + this.height; y++){
+            for(let x=absoluteX; x<absoluteX + this.width; x++){
+                if ( y === absoluteY || x === absoluteX || y === absoluteY + this.height - 1 || x === absoluteX + this.width -1  ){
+                    this.mapData[y][x] = new Wall(x, y);
                 }
             }
         }
@@ -38,7 +39,7 @@ export default class MapGenerator {
 
 
     private getMapData(x: number, y: number): string {
-        if ( x < 0 || x > this.width || y < 0 || y > this.width){
+        if ( x < this.absoluteX || x > this.width + this.absoluteX || y < this.absoluteY || y > this.width + this.absoluteY){
             console.error(`참조범위 초과! x : ${x}, y: ${y}`);
             return "";
         }
@@ -46,7 +47,7 @@ export default class MapGenerator {
     }
 
     private setMapData(x: number, y: number, obj: MapObject): void {
-        if ( x < 0 || x > this.width || y < 0 || y > this.width){
+        if ( x < this.absoluteX || x > this.width + this.absoluteX || y < this.absoluteY || y > this.height + this.absoluteY){
             console.error(`참조범위 초과! x : ${x}, y: ${y}`);
             return;
         }
@@ -58,8 +59,7 @@ export default class MapGenerator {
     }
 
     private make(){
-        const sx = 1, sy = 1
-        let x = sx, y = sy;
+        let x = this.startX + this.absoluteX, y = this.startY + this.absoluteY;
         let movingCount = 10;
         let movingSeed = 50;
         let direction: DirectionType = Direction[1];
@@ -84,20 +84,22 @@ export default class MapGenerator {
 
             for(let rx = x, ry = y; !((rx === x + direction.dx * distance) && (ry === y + direction.dy * distance)); rx += direction.dx ,ry += direction.dy){
                 console.log(this.mapData[ry][rx], ry, rx)
-                this.mapData[ry][rx] = new Road(this.ctx, rx, ry);
+                this.mapData[ry][rx] = new Road(rx, ry);
             }
             x += direction.dx * (distance - 1);
             y += direction.dy * (distance - 1);
             
 
-            this.mapData[y + direction.dy][x + direction.dx] = new Wall(this.ctx, x + direction.dx, y + direction.dy);
+            this.mapData[y + direction.dy][x + direction.dx] = new Wall( x + direction.dx, y + direction.dy);
             
             movingCount -= 1;
 
         }
     }
 
-    getRandomMap(): MapObject[][] {
+    getRandomMap(absoluteX: number, absoluteY: number): MapObject[][] {
+        this.initMapData(absoluteX, absoluteY);
+        this.createSideWall(absoluteX, absoluteY);
         this.make();
         return this.mapData;
     }

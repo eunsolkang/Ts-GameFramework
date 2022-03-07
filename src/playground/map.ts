@@ -4,27 +4,22 @@ import Wall from "../object/wall";
 import Setting from "../system/setting";
 import { Block } from "./block";
 import { Direction, DirectionType } from "./direction";
+import GameMap from "./mapGenerator";
 import MapGenerator from "./mapGenerator";
 
-export default class Map {
-    private mapGenerator: MapGenerator;
-    private mapData:MapObject[][] = new Array(100).fill(0).map(() => new Array(100));
-    private tempMapData:MapObject[][] = new Array(25).fill(0).map(() => new Array(25));
+export default class MapController extends Canvas {
+    private mapData:MapObject[][] = new Array(25).fill(0).map(() => new Array(50));
 
     constructor(
-        private ctx: CanvasRenderingContext2D,
     ){
-        this.mapGenerator = new MapGenerator(ctx, 25, 25, 1, 1);
+        super();
         this.init();
-        
     }
      getMapData(x: number, y: number): string {
         return this.mapData[y][x].constructor.name;
     }
 
-
     init(): void{
-        console.log(this.mapData);
         this.generateMap();
     }
 
@@ -37,9 +32,8 @@ export default class Map {
     }
 
     private generateMap() {
-        this.tempMapData = this.mapGenerator.getRandomMap();
-    }
-    
+        const gameMap: GameMap = new GameMap(0, 0, 0, 0, 25, 25);
 
-   
+        console.log(this.mapData);   
+    }
 }

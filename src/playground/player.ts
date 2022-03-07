@@ -2,17 +2,18 @@ import InputSystem from "../system/inputSystem";
 import { Block } from "./block";
 import Map from "./map";
 
-export default class Player {
+export default class Player extends Canvas{
     constructor(
-        private ctx: CanvasRenderingContext2D,
         private map: Map,
-        private x: number = 0,
-        private y: number = 0,
+        private x: number = 5,
+        private y: number = 5,
         private width: number = 1,
         private height: number = 1,
         private speed =  1,
         private color: string = 'red',
-    ){}
+    ){
+        super();
+    }
     private collisionDetect(x: number, y: number){
         return this.map.getMapData(x, y) === Block.Wall
     }

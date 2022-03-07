@@ -9,7 +9,7 @@ export default class Setting{
 
     constructor(){
         this.blockSize = 35;
-        this.row = 25;
+        this.row = 50;
         this.col = 25;
         this.canvasWidth = this.row * this.blockSize;
         this.canvasHeight = this.col * this.blockSize;

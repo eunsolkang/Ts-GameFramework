@@ -1,10 +1,10 @@
-export default class Road implements MapObject {
+export default class Road extends Canvas implements MapObject {
+    
     constructor(
-        private ctx: CanvasRenderingContext2D,
         private x: number,
         private y: number,
     ){
-        this.ctx = ctx;
+        super();
     }
     init(): void {
         

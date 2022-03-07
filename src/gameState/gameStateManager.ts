@@ -5,10 +5,9 @@ export class GameStateManager {
     private state: GameState;
 
     constructor(
-        private ctx: CanvasRenderingContext2D,
         private setting: Setting,
     ){
-        this.state = new GameReadyState(this.ctx, this.setting, this);
+        this.state = new GameReadyState(this.setting, this);
     }
 
     onChangeGameState(state: GameState){

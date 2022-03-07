@@ -3,14 +3,13 @@ import Setting from "../system/setting";
 import GameStartState from "./gameStartState";
 import { GameStateManager } from "./gameStateManager";
 
-export default class GameReadyState implements GameState{
+export default class GameReadyState extends Canvas implements GameState{
     constructor(
-        private ctx: CanvasRenderingContext2D,
         private setting: Setting,
         private gameStateManager: GameStateManager,
     ){
+        super();
         this.gameStateManager = gameStateManager;
-        this.ctx = ctx;
         this.setting = setting;
     }
 
@@ -23,7 +22,7 @@ export default class GameReadyState implements GameState{
     update() {
         if( InputSystem.instance.isKeyDown('Enter') ){
             this.gameStateManager.onChangeGameState(
-                new GameStartState(this.ctx, this.setting)
+                new GameStartState(this.setting)
             );
         }
     }

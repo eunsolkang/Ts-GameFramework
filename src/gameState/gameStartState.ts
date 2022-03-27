@@ -1,3 +1,4 @@
+import Canvas from "../playground/canvas";
 import Map from "../playground/map";
 import Player from "../playground/player";
 import Setting from "../system/setting";
@@ -7,12 +8,9 @@ export default class GameStartState extends Canvas implements GameState{
     private map: Map;
 
     constructor(
-        private setting: Setting,
-        
     ) {
         super();
-        const blockSize = Setting.instance.getBlockSize();
-        this.ctx.scale(blockSize, blockSize);
+        this.ctx.scale(Setting.blockSize, Setting.blockSize);
         this.map = new Map();
         this.player = new Player(this.map, 5, 5, 1, 1, 1);
     }
@@ -22,8 +20,8 @@ export default class GameStartState extends Canvas implements GameState{
     draw(): void {
         this.ctx.clearRect(
             0, 0, 
-            this.setting.getCanvasWidth(), 
-            this.setting.getCanvasHeight()
+            Setting.canvasWidth,
+            Setting.canvasHeight
         )
         this.map.draw();
         this.player.draw();
@@ -32,5 +30,4 @@ export default class GameStartState extends Canvas implements GameState{
         this.player.update();
         this.map.update();
     }
-
 }

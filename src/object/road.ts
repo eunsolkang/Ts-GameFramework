@@ -1,3 +1,5 @@
+import Canvas from "../playground/canvas";
+
 export default class Road extends Canvas implements MapObject {
     
     constructor(

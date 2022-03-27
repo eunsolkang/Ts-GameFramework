@@ -1,3 +1,4 @@
+import Canvas from "./canvas";
 import GameMap from "./mapGenerator";
 
 export default class MapController extends Canvas {

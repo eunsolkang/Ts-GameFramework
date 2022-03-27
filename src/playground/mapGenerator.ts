@@ -2,6 +2,7 @@ import Road from "../object/road";
 import Space from "../object/space";
 import Wall from "../object/wall";
 import { Block } from "./block";
+import Canvas from "./canvas";
 import { Direction, DirectionType } from "./direction";
 
 export default class MapGenerator extends Canvas{

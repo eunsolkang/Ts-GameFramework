@@ -1,13 +1,11 @@
-import Setting from "../system/setting";
 import GameReadyState from "./gameReadyState";
 
 export class GameStateManager {
     private state: GameState;
 
     constructor(
-        private setting: Setting,
     ){
-        this.state = new GameReadyState(this.setting, this);
+        this.state = new GameReadyState(this);
     }
 
     onChangeGameState(state: GameState){

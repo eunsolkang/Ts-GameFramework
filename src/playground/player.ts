@@ -1,5 +1,6 @@
 import InputSystem from "../system/inputSystem";
 import { Block } from "./block";
+import Canvas from "./canvas";
 import Map from "./map";
 
 export default class Player extends Canvas{

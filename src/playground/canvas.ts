@@ -1,4 +1,4 @@
-class Canvas {
+export default class Canvas {
     protected canvas: HTMLCanvasElement;
     protected ctx: CanvasRenderingContext2D;
 

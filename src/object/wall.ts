@@ -1,3 +1,5 @@
+import Canvas from "../playground/canvas";
+
 export default class Wall extends Canvas implements MapObject {
     constructor(
         private x: number,
